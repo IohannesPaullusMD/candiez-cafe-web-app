@@ -20,4 +20,4 @@ These instructions will help you set up the project on your local machine for de
      ```bash
      copy .env.example .env
      ```
-   - Update the variables in your new `.env` file with your specific configuration values
+   - Update the variables in your new `.env` file with your specific configuration values.
