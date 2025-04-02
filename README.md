@@ -9,7 +9,7 @@ These instructions will help you set up the project on your local machine for de
 ### Prerequisites
 
 Before you begin, ensure you have the following installed:
-
+- [PHP](https://www.php.net/downloads.php)
 - [Composer](https://getcomposer.org/download/) - PHP dependency manager
 - [Node.js and npm](https://nodejs.org/) - JavaScript runtime and package manager
 
@@ -28,6 +28,7 @@ Before you begin, ensure you have the following installed:
      ```bash
      copy .env.example .env
      ```
+
    - Update the variables in your new `.env` file with your specific configuration values
 
 3. Install Dependencies:
@@ -39,3 +40,4 @@ Before you begin, ensure you have the following installed:
      ```bash
      npm install
      ```
+
