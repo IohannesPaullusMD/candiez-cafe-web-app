@@ -11,11 +11,11 @@ These instructions will help you set up the project on your local machine for de
 1. Clone the repository:
 
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/IohannesPaullusMD/candiez-cafe-web-app.git
    cd candiez-cafe-web-app
    ```
 
-2. **Environment Setup (Important)**:
+2. Environment Setup:
    - Copy the contents of `.env.example` to a new file named `.env` in the project root:
      ```bash
      copy .env.example .env
