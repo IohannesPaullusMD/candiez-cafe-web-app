@@ -1,0 +1,5 @@
+# specific files
+.env
+
+# directories
+vendor
