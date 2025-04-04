@@ -21,11 +21,12 @@ async function combineAndMinifyJsFiles(sourceDir, outputFile) {
 
       try {
         const minified = await minify(fileContent, {
-          compress: {
-            drop_console: false, // Preserve console.log statements
-          },
+          compress: false, // Disable compression
+          mangle: false, // Disable mangling
           output: {
             semicolons: true,
+            quote_style: 1, // Use single quotes
+            beautify: false, // Remove whitespace
           },
         });
 
@@ -34,7 +35,7 @@ async function combineAndMinifyJsFiles(sourceDir, outputFile) {
           process.exit(1);
         }
 
-        combinedContent += minified.code.replace(/,+/g, ";") + ";";
+        combinedContent += minified.code + ";";
       } catch (minifyErr) {
         console.error("Could not minify file", filePath, minifyErr);
         process.exit(1);
