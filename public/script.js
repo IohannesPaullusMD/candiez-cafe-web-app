@@ -1,0 +1,1 @@
+console.log("test.js loaded");console.log("test1.js line 2");;let haha="hello";huhu="sad";console.log("test2.js loaded");console.log("hello");;let whereAreWe="public";;

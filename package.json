@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build:public": "node build.js public",
+    "build:admin": "node build.js admin"
+  },
+  "devDependencies": {
+    "terser": "^5.39.0"
+  }
+}
