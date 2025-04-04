@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "build": "npm run build:public && npm run build:admin",
     "build:public": "node build.js public",
     "build:admin": "node build.js admin"
   },

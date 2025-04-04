@@ -64,8 +64,8 @@ if (target === "public") {
   sourceDir = path.join(__dirname, "public", "js"); // Adjust if needed
   outputFile = path.join(__dirname, "public", "script.js");
 } else if (target === "admin") {
-  sourceDir = path.join(__dirname, "admin", "js"); // Adjust if needed
-  outputFile = path.join(__dirname, "admin", "script.js");
+  sourceDir = path.join(__dirname, "_admin_", "js"); // Adjust if needed
+  outputFile = path.join(__dirname, "_admin_", "script.js");
 } else {
   console.error('Invalid target. Use "public" or "admin".');
   process.exit(1);
