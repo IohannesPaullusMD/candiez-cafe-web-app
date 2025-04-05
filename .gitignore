@@ -1,6 +1,6 @@
 # specific files
 .env
-test.*
+*.test.*
 
 # directories
 vendor

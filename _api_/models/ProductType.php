@@ -34,7 +34,7 @@ class ProductType {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
-        $this->price = max(0.0, $price); // Ensure price is not negative
+        $this->price = $price;
         $this->categoryId = $categoryId;
         $this->isAvailable = $isAvailable;
         $this->image = $image;

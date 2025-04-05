@@ -1,69 +1,42 @@
 <?php
 require_once __DIR__ . '/../models/Products.php';
+require_once __DIR__ .'ControllerBootstrap.php';
 
-// Ensure proper JSON response
-header('Content-Type: application/json');
-
-// Parse PUT/DELETE requests
-$request_method = $_SERVER['REQUEST_METHOD'];
-$data = [];
-
-// Parse input data based on request method
-if ($request_method === 'PUT' || $request_method === 'DELETE') {
-    parse_str(file_get_contents('php://input'), $data);
-} else if ($request_method === 'POST') {
-    $data = $_POST;
-    
-    // Handle JSON body for POST requests
-    $contentType = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
-    if (strpos($contentType, 'application/json') !== false) {
-        $json = file_get_contents('php://input');
-        $jsonData = json_decode($json, true);
-        if ($jsonData) {
-            $data = array_merge($data, $jsonData);
-        }
-    }
-}
 
 // Initialize products model
 $products = new Products();
 
-// Helper function to send JSON response
-function sendJsonResponse($data, $statusCode = 200) {
-    http_response_code($statusCode);
-    echo json_encode($data);
-    exit;
+if ($request_method === 'GET') {
+    $response = [];
+    if (isset($_GET['categories'])) {
+        $response = $products->getProductCategories();
+    } else {
+        // Validate and sanitize input parameters
+        $includeNotAvailable = isset($_GET['includeNotAvailable']);
+        $includeIsArchived = isset($_GET['includeArchived']);
+        $productCategoryId = isset($_GET['productCategoryId']) ? 
+            filter_var($_GET['productCategoryId'], FILTER_VALIDATE_INT) : 1;
+
+        if ($productCategoryId === false) {
+            sendJsonResponse(['error' => 'Invalid product category ID'], 400);
+        }
+        
+        $response = $products->getProducts(
+            $includeNotAvailable, 
+            $includeIsArchived,
+            $productCategoryId
+        );
+    }
+
+    sendJsonResponse($response);
+} 
+
+if (!isset($_SESSION['admin_user'])) {
+    sendJsonResponse(['error' => 'Unauthorized'], 401);
 }
 
 try {
     switch ($request_method) {
-        case 'GET':
-            $response = [];
-            if (isset($_GET['categories'])) {
-                $response = $products->getProductCategories();
-            } else {
-                // Validate and sanitize input parameters
-                $includeNotAvailable = isset($_GET['includeNotAvailable']) ? 
-                    filter_var($_GET['includeNotAvailable'], FILTER_VALIDATE_BOOLEAN) : false;
-                $includeIsArchived = isset($_GET['includeIsArchived']) ? 
-                    filter_var($_GET['includeIsArchived'], FILTER_VALIDATE_BOOLEAN) : false;
-                $productCategoryId = isset($_GET['productCategoryId']) ? 
-                    filter_var($_GET['productCategoryId'], FILTER_VALIDATE_INT) : 1;
-    
-                if ($productCategoryId === false) {
-                    sendJsonResponse(['error' => 'Invalid product category ID'], 400);
-                }
-                
-                $response = $products->getProducts(
-                    $includeNotAvailable, 
-                    $includeIsArchived,
-                    $productCategoryId
-                );
-            }
-
-            sendJsonResponse($response);
-            break;
-            
         case 'POST':
             // Create and validate product
             $product = ProductType::createFromData($data);
@@ -109,7 +82,7 @@ try {
                 sendJsonResponse(['error' => 'Invalid product ID'], 400);
             }
             
-            $isArchive = filter_var($data['isArchive'] ?? false, FILTER_VALIDATE_BOOLEAN);
+            $isArchive = isset($data['archive']);
             
             if ($isArchive) {
                 if ($products->archiveProduct($productId)) {
@@ -131,7 +104,7 @@ try {
             break;
     }
 } catch (Exception $e) {
-    error_log("Error in api.php: " . $e->getMessage());
+    error_log("Error in ProductsController.php: " . $e->getMessage());
     sendJsonResponse(['error' => 'An unexpected error occurred'], 500);
 }
 

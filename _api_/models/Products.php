@@ -1,23 +1,12 @@
 <?php
 require_once __DIR__ . '/ProductType.php';
+require_once __DIR__ .'/DatabaseConnection.php';
 
 class Products {
     private mysqli $dbConn;
     
     public function __construct() {
-        $this->dbConn = mysqli_connect(
-            $_ENV['DB_HOST'],
-            $_ENV['DB_USER'],
-            $_ENV['DB_PASSWORD'],
-            $_ENV['DB_NAME']
-        );
-
-        if (!$this->dbConn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-        
-        // Set charset to ensure proper encoding
-        mysqli_set_charset($this->dbConn, 'utf8mb4');
+        $this->dbConn = DatabaseConnection::createConnection();
     }
     
     public function __destruct() {

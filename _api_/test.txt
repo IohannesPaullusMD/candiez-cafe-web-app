@@ -1,0 +1,24 @@
+# GET Request (adjust URI as needed)
+Invoke-WebRequest -Uri "http://localhost/web_dev/candiez-cafe-web-app/backend/products?includeNotAvailable=true&productCategoryId=2" -Method GET
+
+# POST Request (JSON)
+$headers = @{
+    "Content-Type" = "application/json"
+}
+$body = '{"name": "Test Product", "description": "Test Description", "price": 19.99, "categoryId": 1, "isAvailable": $true}' #Note the $true
+Invoke-WebRequest -Uri "http://localhost/web_dev/candiez-cafe-web-app/backend/products" -Method POST -Headers $headers -Body $body
+
+# PUT Request (JSON)
+$headers = @{
+    "Content-Type" = "application/json"
+}
+$body = '{"id": 1, "name": "Updated Product", "description": "Updated Description", "price": 24.99, "categoryId": 2, "isAvailable": $false}' #Note the $false
+Invoke-WebRequest -Uri "http://localhost/web_dev/candiez-cafe-web-app/backend/products" -Method PUT -Headers $headers -Body $body
+
+# DELETE Request (with body - some APIs expect DELETE with a body)
+$headers = @{
+    "Content-Type" = "application/json"
+}
+$body = '{"id": 1, "isArchive": $true}'
+Invoke-WebRequest -Uri "http://localhost/web_dev/candiez-cafe-web-app/backend/products" -Method DELETE -Headers $headers -Body $body
+
