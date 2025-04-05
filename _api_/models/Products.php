@@ -231,7 +231,7 @@ class Products {
     }
 
     public function getProductCategories(): array {
-        $sql = "SELECT * FROM product_categories ORDER BY id ASC";
+        $sql = "SELECT id, name FROM product_categories ORDER BY id ASC";
         $stmt = mysqli_prepare($this->dbConn, $sql);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);

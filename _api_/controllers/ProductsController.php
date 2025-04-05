@@ -39,28 +39,28 @@ try {
     switch ($request_method) {
         case 'GET':
             $response = [];
-            if (isset($_GET['productCategories'])) {
+            if (isset($_GET['categories'])) {
                 $response = $products->getProductCategories();
-                sendJsonResponse($response);
+            } else {
+                // Validate and sanitize input parameters
+                $includeNotAvailable = isset($_GET['includeNotAvailable']) ? 
+                    filter_var($_GET['includeNotAvailable'], FILTER_VALIDATE_BOOLEAN) : false;
+                $includeIsArchived = isset($_GET['includeIsArchived']) ? 
+                    filter_var($_GET['includeIsArchived'], FILTER_VALIDATE_BOOLEAN) : false;
+                $productCategoryId = isset($_GET['productCategoryId']) ? 
+                    filter_var($_GET['productCategoryId'], FILTER_VALIDATE_INT) : 1;
+    
+                if ($productCategoryId === false) {
+                    sendJsonResponse(['error' => 'Invalid product category ID'], 400);
+                }
+                
+                $response = $products->getProducts(
+                    $includeNotAvailable, 
+                    $includeIsArchived,
+                    $productCategoryId
+                );
             }
-            
-            // Validate and sanitize input parameters
-            $includeNotAvailable = isset($_GET['includeNotAvailable']) ? 
-                filter_var($_GET['includeNotAvailable'], FILTER_VALIDATE_BOOLEAN) : false;
-            $includeIsArchived = isset($_GET['includeIsArchived']) ? 
-                filter_var($_GET['includeIsArchived'], FILTER_VALIDATE_BOOLEAN) : false;
-            $productCategoryId = isset($_GET['productCategoryId']) ? 
-                filter_var($_GET['productCategoryId'], FILTER_VALIDATE_INT) : 1;
 
-            if ($productCategoryId === false) {
-                sendJsonResponse(['error' => 'Invalid product category ID'], 400);
-            }
-            
-            $response = $products->getProducts(
-                $includeNotAvailable, 
-                $includeIsArchived,
-                $productCategoryId
-            );
             sendJsonResponse($response);
             break;
             
