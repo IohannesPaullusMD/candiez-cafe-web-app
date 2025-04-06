@@ -12,13 +12,13 @@ if (empty($data)) {
 
 $user = new AdminUser($data['username'], $data['password']);
 
-if ($request_method === 'POST') {
+if ($requestMethod === 'POST') {
     if ($user->login($user)) {
         sendJsonResponse(['message' => 'Login successful'], 200);
     } else {
         sendJsonResponse(['error' => 'Invalid username or password'], 401);
     }
-} elseif ($request_method === 'DELETE') {
+} elseif ($requestMethod === 'DELETE') {
     $user->logout();
     sendJsonResponse(['message' => 'Logout successful'], 200);
 } else {

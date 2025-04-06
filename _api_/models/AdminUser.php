@@ -9,7 +9,7 @@ class AdminUser {
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
-            $_SESSION['admin_user'] = $adminUser->username;
+            $_SESSION['adminUser'] = $adminUser->username;
             return true;
         }
 

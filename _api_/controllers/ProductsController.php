@@ -6,7 +6,7 @@ require_once __DIR__ .'ControllerBootstrap.php';
 // Initialize products model
 $products = new Products();
 
-if ($request_method === 'GET') {
+if ($requestMethod === 'GET') {
     $response = [];
     if (isset($_GET['categories'])) {
         $response = $products->getProductCategories();
@@ -31,12 +31,12 @@ if ($request_method === 'GET') {
     sendJsonResponse($response);
 } 
 
-if (!isset($_SESSION['admin_user'])) {
+if (!isset($_SESSION['adminUser'])) {
     sendJsonResponse(['error' => 'Unauthorized'], 401);
 }
 
 try {
-    switch ($request_method) {
+    switch ($requestMethod) {
         case 'POST':
             // Create and validate product
             $product = ProductType::createFromData($data);

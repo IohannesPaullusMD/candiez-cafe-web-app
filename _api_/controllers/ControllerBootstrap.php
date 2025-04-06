@@ -3,13 +3,13 @@
 header('Content-Type: application/json');
 
 // Parse PUT/DELETE requests
-$request_method = $_SERVER['REQUEST_METHOD'];
+$requestMethod = $_SERVER['REQUEST_METHOD'];
 $data = [];
 
 // Parse input data based on request method
-if ($request_method === 'PUT' || $request_method === 'DELETE') {
+if ($requestMethod === 'PUT' || $requestMethod === 'DELETE') {
     parse_str(file_get_contents('php://input'), $data);
-} else if ($request_method === 'POST') {
+} else if ($requestMethod === 'POST') {
     $data = $_POST;
     
     // Handle JSON body for POST requests
