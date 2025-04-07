@@ -1,3 +1,7 @@
+# specific files
 .env
-/vendor
-/node_modules
+*.test.*
+
+# directories
+vendor
+node_modules

@@ -1,23 +1,10 @@
 {
-  "name": "candiez-cafe-web-app",
-  "version": "1.0.0",
-  "description": "Welcome to the Candiez Cafe Web App repository! This application provides an online platform for Candiez Cafe to showcase their menu.",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:public && npm run build:admin",
+    "build:public": "node build.js public",
+    "build:admin": "node build.js admin"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/IohannesPaullusMD/candiez-cafe-web-app.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/IohannesPaullusMD/candiez-cafe-web-app/issues"
-  },
-  "homepage": "https://github.com/IohannesPaullusMD/candiez-cafe-web-app#readme",
-  "dependencies": {
-    "jquery": "^3.7.1"
+  "devDependencies": {
+    "terser": "^5.39.0"
   }
 }
