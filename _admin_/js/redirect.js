@@ -13,14 +13,14 @@ const redirect = (e) => {
       case "#about":
         viewAbout();
         return;
-      case "#contact":
+      case "#contacts":
         viewContacts();
         return;
       default:
         break;
     }
   }
-  getHomeDetails();
+  viewHome();
 };
 
 document.addEventListener("DOMContentLoaded", redirect);

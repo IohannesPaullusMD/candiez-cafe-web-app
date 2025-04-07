@@ -12,7 +12,7 @@ switch ($data['page'] ?? '') {
     case 'about':
         $response = $siteDetails->getAboutPageDetails();
         break;
-    case 'contact':
+    case 'contacts':
         $response = $siteDetails->getContactPageDetails();
         break;
     default:
