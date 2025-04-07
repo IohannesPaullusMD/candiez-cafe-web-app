@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 
 // Parse PUT/DELETE requests
 $requestMethod = $_SERVER['REQUEST_METHOD'];
-$data = [];
+$data = $_GET; // Default to GET data
 
 // Parse input data based on request method
 if ($requestMethod === 'PUT' || $requestMethod === 'DELETE') {

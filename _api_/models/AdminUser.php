@@ -7,6 +7,7 @@ class AdminUser {
         $stmt->bind_param("ss", $adminUser->username, $adminUser->password);
         $stmt->execute();
         $result = $stmt->get_result();
+        mysqli_close($dbConn);
 
         if ($result->num_rows === 1) {
             $_SESSION['adminUser'] = $adminUser->username;

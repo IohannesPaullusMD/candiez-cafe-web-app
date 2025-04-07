@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/AdminUser.php';
-require_once __DIR__ .'ControllerBootstrap.php';
+require_once __DIR__ .'/ControllerBootstrap.php';
 
 header('Content-Type: application/json');
 

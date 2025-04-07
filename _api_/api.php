@@ -10,6 +10,9 @@ switch ($request_uri) {
     case '/user':
         // require_once __DIR__ . '/controllers/UserController.php';
         break;
+    case '/site-details':
+        require_once __DIR__ . '/controllers/SiteDetailsController.php';
+        break;
     default:
     echo $request_uri;
         header("HTTP/1.0 404 Not Found");
