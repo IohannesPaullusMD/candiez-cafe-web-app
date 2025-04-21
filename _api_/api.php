@@ -1,21 +1,18 @@
 <?php
-$request_uri = strtok($request_uri, '?');
-// echo 'this was executed';
+session_start();
+$requestUri = strtok($requestUri, '?');
 
-switch ($request_uri) {
+switch ($requestUri) {
     case '/products':
-    case '/products/':
+    // case '/products/':
         require_once __DIR__ . '/controllers/ProductsController.php';
         break;
     case '/user':
         // require_once __DIR__ . '/controllers/UserController.php';
         break;
-    case '/site-details':
-        require_once __DIR__ . '/controllers/SiteDetailsController.php';
-        break;
     default:
-    echo $request_uri;
+    echo $requestUri;
         header("HTTP/1.0 404 Not Found");
-        exit("404 Not Found: " . $request_uri);
+        exit("404 Not Found: " . $requestUri);
 }
 ?>

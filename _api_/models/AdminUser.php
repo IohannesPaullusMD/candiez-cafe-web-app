@@ -10,7 +10,7 @@ class AdminUser {
         mysqli_close($dbConn);
 
         if ($result->num_rows === 1) {
-            $_SESSION['adminUser'] = $adminUser->username;
+            $_SESSION['admin_user'] = $adminUser->username;
             return true;
         }
 

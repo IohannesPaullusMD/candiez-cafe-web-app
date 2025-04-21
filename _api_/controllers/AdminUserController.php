@@ -2,27 +2,23 @@
 require_once __DIR__ . '/../models/AdminUser.php';
 require_once __DIR__ .'/ControllerBootstrap.php';
 
-header('Content-Type: application/json');
 
-$user = null;
-
-if (empty($data)) {
-    sendJsonResponse(['error' => 'Invalid request'], 400);
+if ($requestMethod !== 'PUT' || empty($data) || !isset($data['to_login'])) {
+    sendJsonResponse(['message' => 'Invalid request'], 400);
 }
 
-$user = new AdminUser($data['username'], $data['password']);
-
-if ($requestMethod === 'POST') {
-    if ($user->login($user)) {
+if ($data['to_login'] === true) {
+    $user = new AdminUser($data['username'], $data['password']);
+    if (AdminUser::login($user)) {
         sendJsonResponse(['message' => 'Login successful'], 200);
     } else {
-        sendJsonResponse(['error' => 'Invalid username or password'], 401);
+        sendJsonResponse(['message' => 'Invalid username or password'], 401);
     }
-} elseif ($requestMethod === 'DELETE') {
-    $user->logout();
+} else if ($data['to_login'] === false) {
+    AdminUser::logout();
     sendJsonResponse(['message' => 'Logout successful'], 200);
 } else {
-    sendJsonResponse(['error' => 'Method not allowed'], 405);
+    sendJsonResponse(['message' => 'Method not allowed'], 405);
 }
 
 ?>

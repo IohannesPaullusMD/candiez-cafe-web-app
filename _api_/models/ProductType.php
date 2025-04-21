@@ -8,8 +8,8 @@ class ProductType {
             $data['name'] ?? '',
             $data['description'] ?? '',
             filter_var($data['price'] ?? 0.0, FILTER_VALIDATE_FLOAT),
-            filter_var($data['categoryId'] ?? 1, FILTER_VALIDATE_INT),
-            filter_var($data['isAvailable'] ?? false, FILTER_VALIDATE_BOOLEAN),
+            filter_var($data['category_id'] ?? 1, FILTER_VALIDATE_INT),
+            filter_var($data['is_available'] ?? false, FILTER_VALIDATE_BOOLEAN),
             $data['image'] ?? ''
         );
     }

@@ -2,23 +2,22 @@
 require_once __DIR__ . '/../models/Products.php';
 require_once __DIR__ .'/ControllerBootstrap.php';
 
-
 // Initialize products model
 $products = new Products();
 
 if ($requestMethod === 'GET') {
     $response = [];
-    if (isset($_GET['categories'])) {
+    if (isset($data['categories'])) {
         $response = $products->getProductCategories();
     } else {
         // Validate and sanitize input parameters
-        $includeNotAvailable = isset($_GET['includeNotAvailable']);
-        $includeIsArchived = isset($_GET['includeArchived']);
-        $productCategoryId = isset($_GET['productCategoryId']) ? 
-            filter_var($_GET['productCategoryId'], FILTER_VALIDATE_INT) : 1;
+        $includeNotAvailable = isset($data['include_not_available']);
+        $includeIsArchived = isset($data['include_archived']);
+        $productCategoryId = isset($data['category_id']) ? 
+            filter_var($data['category_id'], FILTER_VALIDATE_INT) : 1;
 
         if ($productCategoryId === false) {
-            sendJsonResponse(['error' => 'Invalid product category ID'], 400);
+            sendJsonResponse(['message' => 'Invalid product category ID'], 400);
         }
         
         $response = $products->getProducts(
@@ -31,9 +30,11 @@ if ($requestMethod === 'GET') {
     sendJsonResponse($response);
 } 
 
-if (!isset($_SESSION['adminUser'])) {
-    sendJsonResponse(['error' => 'Unauthorized'], 401);
+if (!isset($_SESSION['admin_user'])) {
+    sendJsonResponse(['message' => 'Unauthorized'], 401);
 }
+
+// the codes below will only be executed for authenticated users
 
 try {
     switch ($requestMethod) {
@@ -43,7 +44,7 @@ try {
             // ?name=abc&description=abc&price=12.34&categoryId=1&isAvailable=false
             $validationErrors = $product->validate();
             if (!empty($validationErrors)) {
-                sendJsonResponse(['errors' => $validationErrors], 400);
+                sendJsonResponse(['message' => $validationErrors], 400);
             }
             
             if ($products->addProduct($product)) {
@@ -57,7 +58,7 @@ try {
             $productId = filter_var($data['id'] ?? ProductType::NO_ID_PROVIDED, FILTER_VALIDATE_INT);
             
             if ($productId <= 0) {
-                sendJsonResponse(['error' => 'Invalid product ID'], 400);
+                sendJsonResponse(['message' => 'Invalid product ID'], 400);
             }
             
             // Create and validate product
@@ -79,7 +80,7 @@ try {
             $productId = filter_var($data['id'] ?? 0, FILTER_VALIDATE_INT);
             
             if ($productId <= 0) {
-                sendJsonResponse(['error' => 'Invalid product ID'], 400);
+                sendJsonResponse(['message' => 'Invalid product ID'], 400);
             }
             
             $isArchive = isset($data['archive']);
@@ -105,7 +106,7 @@ try {
     }
 } catch (Exception $e) {
     error_log("Error in ProductsController.php: " . $e->getMessage());
-    sendJsonResponse(['error' => 'An unexpected error occurred'], 500);
+    sendJsonResponse(['message' => 'An unexpected error occurred'], 500);
 }
 
 ?>

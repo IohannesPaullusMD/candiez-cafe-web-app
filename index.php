@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
@@ -8,14 +6,14 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/');
 $dotenv->load();
 
-$base_uri = ($_ENV['APP_BASE_URI'] ?? '') . '/';
-$request_uri = $_SERVER['REQUEST_URI'];
+$baseUri = ($_ENV['APP_BASE_URI'] ?? '') . '/';
+$requestUri = $_SERVER['REQUEST_URI'];
 
-if (strpos($request_uri, $base_uri) === 0) {
-    $request_uri = substr($request_uri, strlen($base_uri));
+if (strpos($requestUri, $baseUri) === 0) {
+    $requestUri = substr($requestUri, strlen($baseUri));
 }
 
-$baseRequestUri = substr($request_uri, 0, strpos($request_uri, "/"));
+$baseRequestUri = substr($requestUri, 0, strpos($requestUri, "/"));
 
 switch ($baseRequestUri) {
     case "":
@@ -23,16 +21,19 @@ switch ($baseRequestUri) {
         require_once __DIR__ . '/public/app.php';
         break;
     case 'backend':
-        $request_uri = substr($request_uri, strlen('backend'));
+        $requestUri = substr($requestUri, strlen('backend'));
         require_once __DIR__ . '/_api_/api.php';
         exit;
     case 'admin':
-        $request_uri = substr($request_uri, strlen('admin'));
+    case 'admin/':
+        $requestUri = substr($requestUri, strlen('admin'));
         require_once __DIR__ . '/_admin_/admin.php';
         exit;
     default:
         header("HTTP/1.0 404 Not Found");
-        exit("404 Not Found: " . $request_uri);
+        exit("404 Not Found: " . $requestUri);
 }
+
+
 
 ?>
