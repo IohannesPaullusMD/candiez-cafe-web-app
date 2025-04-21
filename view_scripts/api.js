@@ -1,5 +1,5 @@
 function getProductCategories(callback) {
-  fetch("backend/products?categories=true")
+  fetch("backend/products?get_categories=true")
     .then((response) => response.json())
     .then((data) => callback(data))
     .catch((error) => console.error("Error: ", error));
