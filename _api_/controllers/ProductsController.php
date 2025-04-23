@@ -11,11 +11,11 @@ if ($requestMethod === 'GET') {
         $response = $products->getProductCategories();
     } else {
         // Validate and sanitize input parameters
-        $includeNotAvailable = $data['include_not_available'] ?? false;
-        $includeIsArchived = $data['include_archived'] ?? false;
+        $includeNotAvailable = filter_var($data['include_not_available'], FILTER_VALIDATE_BOOLEAN);
+        $includeIsArchived = filter_var($data['include_archived'], FILTER_VALIDATE_BOOLEAN);
         $productCategoryId = isset($data['category_id']) ? 
             filter_var($data['category_id'], FILTER_VALIDATE_INT) : 1;
-
+        
         if ($productCategoryId === false) {
             sendJsonResponse(['message' => 'Invalid product category ID'], 400);
         }

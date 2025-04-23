@@ -48,9 +48,7 @@ class Products {
             $sql .= "AND is_available = 1 ";
         }
 
-        if ($includeIsArchived) {
-            $sql .= "AND is_archived = 1 ";
-        } else {
+        if (!$includeIsArchived) {
             $sql .= "AND (is_archived = 0 OR is_archived IS NULL) ";
         }
         
