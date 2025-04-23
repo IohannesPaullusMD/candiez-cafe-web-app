@@ -7,8 +7,8 @@ switch ($requestUri) {
     // case '/products/':
         require_once __DIR__ . '/controllers/ProductsController.php';
         break;
-    case '/user':
-        // require_once __DIR__ . '/controllers/UserController.php';
+    case '/users':
+        require_once __DIR__ . '/controllers/AdminUserController.php';
         break;
     default:
     echo $requestUri;

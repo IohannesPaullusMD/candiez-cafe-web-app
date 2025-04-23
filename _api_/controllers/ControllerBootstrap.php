@@ -11,19 +11,16 @@ function sendJsonResponse($data = ['message' => 'empty response'], $statusCode =
 }
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
-$data = []; // Default to GET data
+$data = []; 
 
 switch ($requestMethod) {
     case 'GET':
         $data = $_GET;
         break;
-    case 'PUT':
-    case 'DELETE':
-        parse_str(file_get_contents('php://input'), $data);
-        break;
     case 'POST':
-        $data = $_POST;
-        $contentType = isset($_SERVER['CONTENT_TYPE']) ?? '';
+    case "PUT":
+    case 'DELETE':
+        $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
         if (strpos($contentType, 'application/json') !== false) {
             $json = file_get_contents('php://input');
             $jsonData = json_decode($json, true);

@@ -16,6 +16,26 @@ class Products {
         }
     }
 
+    public function getProductCategories(): array {
+        $sql = "SELECT id, name FROM product_categories ORDER BY id ASC";
+        $stmt = mysqli_prepare($this->dbConn, $sql);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        $categories = [];
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $categories[] = [
+                    'id' => (int)$row['id'],
+                    'name' => $row['name'],
+                ];
+            }
+        }
+        
+        mysqli_stmt_close($stmt);
+        return $categories;
+    }
+
     public function getProducts(
         bool $includeNotAvailable = false,
         bool $includeIsArchived = false,
@@ -120,8 +140,8 @@ class Products {
             $isAvailable = $product->isAvailable() ? 1 : 0;
             $image = $product->getImage();
             
-            $sql = "UPDATE products SET name=?, description=?, price=?, category_id=?, is_available=?, image=? 
-                   WHERE id=? AND (is_archived = 0 OR is_archived IS NULL)";
+            $sql = "UPDATE products SET name=?, description=?, price=?, 
+                    category_id=?, is_available=?, image=? WHERE id=?";
                    
             $stmt = mysqli_prepare($this->dbConn, $sql);
             mysqli_stmt_bind_param(
@@ -155,15 +175,15 @@ class Products {
         }
     }
 
-    public function archiveProduct(int $id): bool {
+    public function setProductArchiveStatus(int $id, bool $state): bool {
         if ($id <= 0) {
             return false;
         }
         
         try {
-            $sql = "UPDATE products SET is_archived=1 WHERE id=?";
+            $sql = "UPDATE products SET is_archived=? WHERE id=?";
             $stmt = mysqli_prepare($this->dbConn, $sql);
-            mysqli_stmt_bind_param($stmt, 'i', $id);
+            mysqli_stmt_bind_param($stmt, 'ii', $state, $id);
             $result = mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
             return $result;
@@ -191,52 +211,33 @@ class Products {
         }
     }
 
-    public function getProductById(int $id): ?ProductType {
-        if ($id <= 0) {
-            return null;
-        }
+    // public function getProductById(int $id): ?ProductType {
+    //     if ($id <= 0) {
+    //         return null;
+    //     }
         
-        $sql = "SELECT * FROM products WHERE id = ? AND (is_archived = 0 OR is_archived IS NULL)";
-        $stmt = mysqli_prepare($this->dbConn, $sql);
-        mysqli_stmt_bind_param($stmt, 'i', $id);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+    //     $sql = "SELECT * FROM products WHERE id = ? AND (is_archived = 0 OR is_archived IS NULL)";
+    //     $stmt = mysqli_prepare($this->dbConn, $sql);
+    //     mysqli_stmt_bind_param($stmt, 'i', $id);
+    //     mysqli_stmt_execute($stmt);
+    //     $result = mysqli_stmt_get_result($stmt);
         
-        if ($result && mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            return new ProductType(
-                (int)$row['id'],
-                $row['name'],
-                $row['description'],
-                (float)$row['price'],
-                (int)$row['category_id'],
-                (bool)$row['is_available'],
-                $row['image'] ?? ''
-            );
-        }
+    //     if ($result && mysqli_num_rows($result) > 0) {
+    //         $row = mysqli_fetch_assoc($result);
+    //         return new ProductType(
+    //             (int)$row['id'],
+    //             $row['name'],
+    //             $row['description'],
+    //             (float)$row['price'],
+    //             (int)$row['category_id'],
+    //             (bool)$row['is_available'],
+    //             $row['image'] ?? ''
+    //         );
+    //     }
         
-        mysqli_stmt_close($stmt);
-        return null;
-    }
+    //     mysqli_stmt_close($stmt);
+    //     return null;
+    // }
 
-    public function getProductCategories(): array {
-        $sql = "SELECT id, name FROM product_categories ORDER BY id ASC";
-        $stmt = mysqli_prepare($this->dbConn, $sql);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        
-        $categories = [];
-        if ($result && mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $categories[] = [
-                    'id' => (int)$row['id'],
-                    'name' => $row['name'],
-                ];
-            }
-        }
-        
-        mysqli_stmt_close($stmt);
-        return $categories;
-    }
 }
 ?>

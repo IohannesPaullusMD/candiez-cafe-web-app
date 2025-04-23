@@ -7,12 +7,12 @@ $products = new Products();
 
 if ($requestMethod === 'GET') {
     $response = [];
-    if (isset($data['categories'])) {
+    if ($data['get_categories'] ?? false) {
         $response = $products->getProductCategories();
     } else {
         // Validate and sanitize input parameters
-        $includeNotAvailable = isset($data['include_not_available']);
-        $includeIsArchived = isset($data['include_archived']);
+        $includeNotAvailable = $data['include_not_available'] ?? false;
+        $includeIsArchived = $data['include_archived'] ?? false;
         $productCategoryId = isset($data['category_id']) ? 
             filter_var($data['category_id'], FILTER_VALIDATE_INT) : 1;
 
@@ -31,7 +31,7 @@ if ($requestMethod === 'GET') {
 } 
 
 if (!isset($_SESSION['admin_user'])) {
-    sendJsonResponse(['message' => 'Unauthorized'], 401);
+    // sendJsonResponse(['message' => 'Unauthorized'], 401);
 }
 
 // the codes below will only be executed for authenticated users
@@ -39,9 +39,12 @@ if (!isset($_SESSION['admin_user'])) {
 try {
     switch ($requestMethod) {
         case 'POST':
+            if(!($data['add_product'] ?? false)) {
+                sendJsonResponse(['message'=> 'Bad Request'], 400);
+            }
+
             // Create and validate product
             $product = ProductType::createFromData($data);
-            // ?name=abc&description=abc&price=12.34&categoryId=1&isAvailable=false
             $validationErrors = $product->validate();
             if (!empty($validationErrors)) {
                 sendJsonResponse(['message' => $validationErrors], 400);
@@ -54,50 +57,60 @@ try {
             }            
             break;
             
-        case 'PUT':
-            $productId = filter_var($data['id'] ?? ProductType::NO_ID_PROVIDED, FILTER_VALIDATE_INT);
-            
+        case 'PUT':       
+            $productId = $data['product_id'] ?? -1;
+                 
             if ($productId <= 0) {
                 sendJsonResponse(['message' => 'Invalid product ID'], 400);
             }
-            
-            // Create and validate product
-            $product = ProductType::createFromData($data);
-            
-            $validationErrors = $product->validate();
-            if (!empty($validationErrors)) {
-                sendJsonResponse(['errors' => $validationErrors], 400);
-            }
-            
-            if ($products->updateProduct($product)) {
-                sendJsonResponse(['message' => 'Product updated successfully']);
+
+            if ($data['update_product'] ?? false) {
+                $productId = filter_var($data['product_id'] ?? ProductType::NO_ID_PROVIDED, FILTER_VALIDATE_INT);
+                
+                
+                // Create and validate product
+                $product = ProductType::createFromData($data);
+                
+                $validationErrors = $product->validate();
+                if (!empty($validationErrors)) {
+                    sendJsonResponse(['errors' => $validationErrors], 400);
+                }
+                
+                if ($products->updateProduct($product)) {
+                    sendJsonResponse(['message' => 'Product updated successfully']);
+                } else {
+                    sendJsonResponse(['message' => 'Failed to update product'], 500);
+                }
+            } else if ($data['update'] ?? false) {
+
             } else {
-                sendJsonResponse(['message' => 'Failed to update product'], 500);
+                sendJsonResponse(['message'=> 'Bad Request'], 400);
             }
+
             break;
             
         case 'DELETE':
-            $productId = filter_var($data['id'] ?? 0, FILTER_VALIDATE_INT);
+            // $productId = filter_var($data['id'] ?? 0, FILTER_VALIDATE_INT);
             
-            if ($productId <= 0) {
-                sendJsonResponse(['message' => 'Invalid product ID'], 400);
-            }
+            // if ($productId <= 0) {
+            //     sendJsonResponse(['message' => 'Invalid product ID'], 400);
+            // }
             
-            $isArchive = isset($data['archive']);
+            // $isArchive = isset($data['archive']);
             
-            if ($isArchive) {
-                if ($products->archiveProduct($productId)) {
-                    sendJsonResponse(['message' => 'Product archived successfully']);
-                } else {
-                    sendJsonResponse(['message' => 'Failed to archive product'], 500);
-                }
-            } else {
-                if ($products->deleteProduct($productId)) {
-                    sendJsonResponse(['message' => 'Product deleted successfully']);
-                } else {
-                    sendJsonResponse(['message' => 'Failed to delete product'], 500);
-                }
-            }
+            // if ($isArchive) {
+            //     if ($products->setProductArchiveStatus($productId)) {
+            //         sendJsonResponse(['message' => 'Product archived successfully']);
+            //     } else {
+            //         sendJsonResponse(['message' => 'Failed to archive product'], 500);
+            //     }
+            // } else {
+            //     if ($products->deleteProduct($productId)) {
+            //         sendJsonResponse(['message' => 'Product deleted successfully']);
+            //     } else {
+            //         sendJsonResponse(['message' => 'Failed to delete product'], 500);
+            //     }
+            // }
             break;
             
         default:

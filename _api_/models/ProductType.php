@@ -4,7 +4,7 @@ class ProductType {
 
     public static function createFromData($data) {
         return new self(
-            $data['id'] ?? self::NO_ID_PROVIDED,
+            $data['product_id'] ?? self::NO_ID_PROVIDED,
             $data['name'] ?? '',
             $data['description'] ?? '',
             filter_var($data['price'] ?? 0.0, FILTER_VALIDATE_FLOAT),

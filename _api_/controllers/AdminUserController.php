@@ -4,7 +4,12 @@ require_once __DIR__ .'/ControllerBootstrap.php';
 
 
 if ($requestMethod !== 'PUT' || empty($data) || !isset($data['to_login'])) {
-    sendJsonResponse(['message' => 'Invalid request'], 400);
+    sendJsonResponse(['message' => 'Invalid request',
+    'q1' => $requestMethod,
+    'q2' => empty($data),
+    'q3' => !isset($data['to_login']),
+    'q4' => $contentType,
+], 401);
 }
 
 if ($data['to_login'] === true) {
