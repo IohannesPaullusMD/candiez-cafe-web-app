@@ -59,7 +59,7 @@ try {
             
         case 'PUT':       
             $productId = $data['product_id'] ?? -1;
-                 
+
             if ($productId <= 0) {
                 sendJsonResponse(['message' => 'Invalid product ID'], 400);
             }
@@ -81,8 +81,15 @@ try {
                 } else {
                     sendJsonResponse(['message' => 'Failed to update product'], 500);
                 }
-            } else if ($data['update'] ?? false) {
+            } else if ($data['update_archive_status'] ?? false) {
+                $productId = filter_var($data['product_id'] ?? ProductType::NO_ID_PROVIDED, FILTER_VALIDATE_INT);
+                $archiveStatus = filter_var($data['is_archive'], FILTER_VALIDATE_BOOLEAN);
 
+                if ($products->setProductArchiveStatus($productId, $archiveStatus)) {
+                    sendJsonResponse(['message' => 'Product archive status updated successfully']);
+                } else {
+                    sendJsonResponse(['message' => 'Failed to update product archive status'], 500);
+                }
             } else {
                 sendJsonResponse(['message'=> 'Bad Request'], 400);
             }

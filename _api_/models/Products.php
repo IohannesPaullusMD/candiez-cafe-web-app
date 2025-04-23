@@ -186,7 +186,15 @@ class Products {
             mysqli_stmt_bind_param($stmt, 'ii', $state, $id);
             $result = mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
-            return $result;
+
+            if ($result) {
+                mysqli_commit($this->dbConn);
+                return true;
+            }
+            
+            // Rollback if failed
+            mysqli_rollback($this->dbConn);
+            return false;
         } catch (Exception $e) {
             error_log("Error archiving product: " . $e->getMessage());
             return false;
