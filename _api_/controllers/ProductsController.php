@@ -97,27 +97,14 @@ try {
             break;
             
         case 'DELETE':
-            // $productId = filter_var($data['id'] ?? 0, FILTER_VALIDATE_INT);
-            
-            // if ($productId <= 0) {
-            //     sendJsonResponse(['message' => 'Invalid product ID'], 400);
-            // }
-            
-            // $isArchive = isset($data['archive']);
-            
-            // if ($isArchive) {
-            //     if ($products->setProductArchiveStatus($productId)) {
-            //         sendJsonResponse(['message' => 'Product archived successfully']);
-            //     } else {
-            //         sendJsonResponse(['message' => 'Failed to archive product'], 500);
-            //     }
-            // } else {
-            //     if ($products->deleteProduct($productId)) {
-            //         sendJsonResponse(['message' => 'Product deleted successfully']);
-            //     } else {
-            //         sendJsonResponse(['message' => 'Failed to delete product'], 500);
-            //     }
-            // }
+            if ($data['delete_product'] ?? false) {
+                $productId = filter_var($data['product_id'] ?? ProductType::NO_ID_PROVIDED, FILTER_VALIDATE_INT);
+                if ($products->deleteProduct($productId)) {
+                    sendJsonResponse(['message' => 'Product deleted successfully']);
+                } else {
+                    sendJsonResponse(['message' => 'Failed to delete product'], 500);
+                }
+            }
             break;
             
         default:
