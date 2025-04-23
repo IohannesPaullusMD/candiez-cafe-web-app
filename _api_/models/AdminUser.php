@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ .'/DatabaseConnection.php';
+
 class AdminUser {
     
     public static function login(AdminUser $adminUser): bool {

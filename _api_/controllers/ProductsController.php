@@ -31,7 +31,7 @@ if ($requestMethod === 'GET') {
 } 
 
 if (!isset($_SESSION['admin_user'])) {
-    // sendJsonResponse(['message' => 'Unauthorized'], 401);
+    sendJsonResponse(['message' => 'Unauthorized'], 401);
 }
 
 // the codes below will only be executed for authenticated users
