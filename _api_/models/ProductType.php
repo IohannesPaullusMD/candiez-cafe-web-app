@@ -54,7 +54,7 @@ class ProductType {
         if (!empty($this->image)) {
             try {
                 $data['image'] = $this->getImageBase64();
-                $data['imageType'] = $this->getImageType();
+                $data['image_type'] = $this->getImageType();
             } catch (Exception $e) {
                 // Image data could not be processed
                 error_log("Error processing image data: " . $e->getMessage());

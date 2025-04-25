@@ -1,4 +1,4 @@
-const redirect = (e) => {
+function redirect(e) {
   const hash = window.location.hash;
 
   if (e) {
@@ -21,6 +21,6 @@ const redirect = (e) => {
     }
   }
   viewHome();
-};
+}
 
 document.addEventListener("DOMContentLoaded", redirect);
