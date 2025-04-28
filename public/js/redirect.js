@@ -1,9 +1,5 @@
-function redirect(e) {
+function redirect() {
   const hash = window.location.hash;
-
-  if (e) {
-    e.preventDefault();
-  }
 
   if (hash !== null) {
     switch (hash) {
@@ -17,10 +13,10 @@ function redirect(e) {
         viewContacts();
         return;
       default:
+        viewHome();
         break;
     }
   }
-  viewHome();
 }
 
 document.addEventListener("DOMContentLoaded", redirect);

@@ -1,23 +1,41 @@
 function viewMenu() {
   const root = document.getElementById("root");
+  root.innerHTML = "";
 
   getProductCategories((categories) => {
-    root.innerHTML = "";
+    const productsDiv = document.createElement("div");
+    const categoryNavBar = document.createElement("span");
+
+    productsDiv.id = "products-div";
+    categoryNavBar.id = "category-nav-bar";
+
     categories.forEach((category) => {
-      root.innerHTML += `<p>${category["name"]}: ${category["id"]}</p>`;
+      categoryNavBar.innerHTML += `
+        <button 
+          class="category-button" 
+          onclick="loadProducts(${category["id"]})">
+            ${category["name"]}
+        </button>
+      `;
     });
 
+    root.appendChild(categoryNavBar);
     root.innerHTML += "<hr>";
-    getProducts(categories[1]["id"], false, false, (products) => {
-      products.forEach((product) => {
-        root.innerHTML += `
+    root.appendChild(productsDiv);
+    loadProducts(categories[1]["id"]);
+  });
+}
+
+function loadProducts(categoryId) {
+  const root = document.getElementById("products-div");
+  root.innerHTML = "";
+  getProducts(categoryId, false, false, (products) => {
+    products.forEach((product) => {
+      root.innerHTML += `
       <p>
         ${product["id"]}: ${product["name"]}, 
-        ${categories[product["category_id"] - 1]["name"]}, Php ${
-          product["price"]
-        }
+        ${product["category_id"]}, Php ${product["price"]}
       </p>`;
-      });
     });
   });
 }
