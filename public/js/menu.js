@@ -28,10 +28,23 @@ function viewMenu() {
 
 function loadProducts(categoryId) {
   const root = document.getElementById("products-div");
+  // root.style.display = "flex";
+  // root.style.flexWrap = "wrap";
+  // root.style.gap = "1rem"; // Add gap between cards
+  // root.style.justifyContent = "center"; // Center the cards
+  // root.style.padding = "1rem"; // Add padding around the cards
+  // root.style.backgroundColor = "#f8f9fa"; // Light background color for better visibility
+  // root.style.borderRadius = "0.5rem"; // Rounded corners for the card container
+  // root.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)"; // Subtle shadow for depth
+
+  root.style = `
+    display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; padding: 1rem; background-color: #f8f9fa; border-radius: 0.5rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    `;
+
   root.innerHTML = "";
   getProducts(categoryId, false, false, (products) => {
     products.forEach((product) => {
-      root.innerHTML += ProductCard(product);
+      root.appendChild(createProductCard(product));
     });
   });
 }

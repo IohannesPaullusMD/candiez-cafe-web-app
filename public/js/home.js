@@ -16,7 +16,7 @@ function viewHome() {
           <div
             class="bg-white d-flex align-items-center justify-content-center border rounded p-5"
           >
-            <img id="home-img" src="" alt="home-image">
+            <img id="home-img" src="https://operaparallele.org/wp-content/uploads/2023/09/Placeholder_Image.png" width="300px" alt="home-image">
           </div>
         </div>
       </div>
