@@ -22,7 +22,7 @@ function viewMenu() {
     root.appendChild(categoryNavBar);
     root.innerHTML += "<hr>";
     root.appendChild(productsDiv);
-    loadProducts(categories[1]["id"]);
+    loadProducts(categories[0]["id"]);
   });
 }
 
@@ -31,11 +31,7 @@ function loadProducts(categoryId) {
   root.innerHTML = "";
   getProducts(categoryId, false, false, (products) => {
     products.forEach((product) => {
-      root.innerHTML += `
-      <p>
-        ${product["id"]}: ${product["name"]}, 
-        ${product["category_id"]}, Php ${product["price"]}
-      </p>`;
+      root.innerHTML += ProductCard(product);
     });
   });
 }

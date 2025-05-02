@@ -9,8 +9,11 @@
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-   <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-   <script src="view_scripts/api.js"></script>
+   <!-- 1. Load jQuery first, WITHOUT defer -->
+   <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- 2. Load Bootstrap Bundle JS (includes Popper.js) AFTER jQuery -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="view_scripts/api.js" defer></script>
    <script src="view_scripts/public_script.js" defer></script> 
   </head>
   <body class="bg-light d-flex flex-column min-vh-100">
@@ -23,22 +26,25 @@
         type="button"
         data-toggle="collapse"
         data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link text-white" href="./#home">Home</a>
+            <a class="nav-link text-white a-tag" href="#home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#menu" onclick="redirect()">Menu</a>
+            <a class="nav-link text-white a-tag" href="#menu">Menu</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#about" onclick="redirect()">About</a>
+            <a class="nav-link text-white a-tag" href="#about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#contact" onclick="redirect()">Contact</a>
+            <a class="nav-link text-white a-tag" href="#contact">Contact</a>
           </li>
         </ul>
       </div>

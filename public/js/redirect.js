@@ -1,6 +1,7 @@
 function redirect() {
+  // e.preventDefault();
   const hash = window.location.hash;
-
+  console.log(hash);
   if (hash !== null) {
     switch (hash) {
       case "#menu":
@@ -19,4 +20,12 @@ function redirect() {
   }
 }
 
+Array.from(document.getElementsByClassName("a-tag")).forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const href = e.target.getAttribute("href");
+    location.hash = href;
+    redirect();
+  });
+});
 document.addEventListener("DOMContentLoaded", redirect);

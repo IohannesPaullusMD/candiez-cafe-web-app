@@ -1,4 +1,5 @@
 function viewHome() {
+  console.log("home page...");
   const root = document.getElementById("root");
 
   root.innerHTML = `
