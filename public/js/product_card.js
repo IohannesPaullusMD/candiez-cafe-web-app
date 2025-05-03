@@ -23,8 +23,9 @@ function createProductCard(product) {
   const productImage = document.createElement("img");
   productImage.className = "card-img-top bd-placeholder-img";
   productImage.style.width = "100%"; // Set the width to 100% of the card
-  productImage.style.height = "200px"; // Set a fixed height for the image
-  productImage.style.borderBottom = "1px solid #ddd"; // Optional: Add a border for better separation
+  productImage.style.aspectRatio = "1 / 1"; // Maintain a square aspect ratio
+  productImage.style.objectFit = "cover"; // Cover the entire area of the card
+  productImage.style.borderBottom = "2px solid #ddd"; // Optional: Add a border for better separation
   productCard.appendChild(productImage);
 
   if (product["image"] && product["image_type"]) {
