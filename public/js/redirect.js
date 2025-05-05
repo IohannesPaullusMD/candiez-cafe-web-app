@@ -6,26 +6,28 @@ function redirect() {
     switch (hash) {
       case "#menu":
         viewMenu();
-        return;
+        break;
       case "#about":
         viewAbout();
-        return;
+        break;
       case "#contact":
         viewContacts();
-        return;
+        break;
       default:
         viewHome();
         break;
     }
   }
+
+  Array.from(document.getElementsByClassName("a-tag")).forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const href = e.target.getAttribute("href");
+      location.hash = href;
+      console.log(href);
+      location.reload();
+    });
+  });
 }
 
-Array.from(document.getElementsByClassName("a-tag")).forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-    const href = e.target.getAttribute("href");
-    location.hash = href;
-    location.reload();
-  });
-});
 document.addEventListener("DOMContentLoaded", redirect);

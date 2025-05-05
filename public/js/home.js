@@ -12,7 +12,7 @@ function viewHome() {
             Enjoy our delicious treats and beverages in a cozy atmosphere or
             order online for pickup.
           </p>
-          <a href="#menu" onclick="redirect(e)" class="btn btn-dark">View Menu</a>
+          <a class="btn btn-dark a-tag" href="#menu">View Menu</a>
         </div>
         <div class="col-lg-6 col-md-12 mt-4 mt-lg-0 margin-top-lg-10">
           
