@@ -13,7 +13,9 @@ if (strpos($requestUri, $baseUri) === 0) {
     $requestUri = substr($requestUri, strlen($baseUri));
 }
 
-$baseRequestUri = substr($requestUri, 0, strpos($requestUri, "/"));
+$baseRequestUri = strpos($requestUri, "backend") !== false
+    ? substr($requestUri, 0, length: strpos($requestUri, "/"))
+    : $requestUri;
 
 switch ($baseRequestUri) {
     case "":
