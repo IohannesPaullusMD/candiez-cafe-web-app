@@ -21,7 +21,6 @@ function loadProducts(categoryId) {
     display: flex; 
     flex-wrap: wrap; 
     gap: 1rem; 
-    justify-content: justify-center; 
     padding: 1rem; 
     background-color: #f8f9fa; 
     border-radius: 0.5rem; 
@@ -30,7 +29,7 @@ function loadProducts(categoryId) {
     min-height: 65vh;
     min-width: 100%;
   `;
-
+  root.className += " justify-content-center justify-content-md-start";
   root.innerHTML = "";
   getProducts(categoryId, false, false, (products) => {
     products.forEach((product) => {
