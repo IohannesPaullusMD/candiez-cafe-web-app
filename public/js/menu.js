@@ -9,17 +9,6 @@ function viewMenu() {
     productsDiv.id = "products-div";
     categoryNavBar.id = "category-nav-bar";
 
-    // categories.forEach((category) => {
-    //   // categoryNavBar.innerHTML += `
-    //   //   <button
-    //   //     class="category-button btn btn-outline-dark"
-    //   //     onclick="loadProducts(${category["id"]})">
-    //   //       ${category["name"]}
-    //   //   </button>
-    //   // `;
-    //   categoryNavBar.appendChild(createCategoryButton(category));
-    // });
-
     root.appendChild(categoryNavBar);
     root.appendChild(productsDiv);
     loadProducts(categories[0]["id"]);
@@ -38,7 +27,10 @@ function loadProducts(categoryId) {
     border-radius: 0.5rem; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
+    min-height: 100vh;
+    min-width: 100%;
   `;
+
   root.innerHTML = "";
   getProducts(categoryId, false, false, (products) => {
     products.forEach((product) => {

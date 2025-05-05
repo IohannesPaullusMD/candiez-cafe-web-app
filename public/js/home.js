@@ -1,10 +1,12 @@
 function viewHome() {
   console.log("home page...");
   const root = document.getElementById("root");
-
+  root.style.justifyContent = "center";
+  root.style.alignItems = "center";
+  root.style.display = "flex";
   root.innerHTML = `
     <div class="row align-items-center">
-        <div class="col-lg-6 col-md-12 text-center text-lg-left">
+        <div class="col-lg-6 col-md-12 text-lg-left">
           <h1 class="text-dark">Welcome to Candiez Café</h1>
           <p class="text-muted">
             Enjoy our delicious treats and beverages in a cozy atmosphere or
@@ -12,12 +14,9 @@ function viewHome() {
           </p>
           <a href="#menu" onclick="redirect(e)" class="btn btn-dark">View Menu</a>
         </div>
-        <div class="col-lg-6 col-md-12 mt-4 mt-lg-0">
-          <div
-            class="bg-white d-flex align-items-center justify-content-center border rounded p-5"
-          >
-            <img id="home-img" src="https://operaparallele.org/wp-content/uploads/2023/09/Placeholder_Image.png" width="300px" alt="home-image">
-          </div>
+        <div class="col-lg-6 col-md-12 mt-4 mt-lg-0 margin-top-lg-10">
+          
+          <img id="home-img" class="rounded" src="https://operaparallele.org/wp-content/uploads/2023/09/Placeholder_Image.png" width="100%" alt="home-image">
         </div>
       </div>
   `;

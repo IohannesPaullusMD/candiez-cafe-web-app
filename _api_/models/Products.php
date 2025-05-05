@@ -65,7 +65,6 @@ class Products {
                     (int)$row['id'],
                     $row['name'],
                     $row['description'],
-                    (float)$row['price'],
                     (int)$row['category_id'],
                     (bool)$row['is_available'],
                     $row['image'] ?? '',
@@ -86,21 +85,19 @@ class Products {
             
             $name = $product->getName();
             $description = $product->getDescription();
-            $price = $product->getPrice();
             $categoryId = $product->getCategoryId();
             $isAvailable = $product->isAvailable() ? 1 : 0;
             $image = $product->getImage();
             
-            $sql = "INSERT INTO products (name, description, price, category_id, is_available, image) 
+            $sql = "INSERT INTO products (name, description, category_id, is_available, image) 
                    VALUES (?, ?, ?, ?, ?, ?)";
                    
             $stmt = mysqli_prepare($this->dbConn, $sql);
             mysqli_stmt_bind_param(
                 $stmt,
-                'ssdiss',
+                'ssiss',
                 $name,
                 $description,
-                $price,
                 $categoryId,
                 $isAvailable,
                 $image
@@ -133,21 +130,19 @@ class Products {
             $id = $product->getId();
             $name = $product->getName();
             $description = $product->getDescription();
-            $price = $product->getPrice();
             $categoryId = $product->getCategoryId();
             $isAvailable = $product->isAvailable() ? 1 : 0;
             $image = $product->getImage();
             
-            $sql = "UPDATE products SET name=?, description=?, price=?, 
+            $sql = "UPDATE products SET name=?, description=?, 
                     category_id=?, is_available=?, image=? WHERE id=?";
                    
             $stmt = mysqli_prepare($this->dbConn, $sql);
             mysqli_stmt_bind_param(
                 $stmt,
-                'ssdissi',
+                'ssissi',
                 $name,
                 $description,
-                $price,
                 $categoryId,
                 $isAvailable,
                 $image,
@@ -216,34 +211,5 @@ class Products {
             return false;
         }
     }
-
-    // public function getProductById(int $id): ?ProductType {
-    //     if ($id <= 0) {
-    //         return null;
-    //     }
-        
-    //     $sql = "SELECT * FROM products WHERE id = ? AND (is_archived = 0 OR is_archived IS NULL)";
-    //     $stmt = mysqli_prepare($this->dbConn, $sql);
-    //     mysqli_stmt_bind_param($stmt, 'i', $id);
-    //     mysqli_stmt_execute($stmt);
-    //     $result = mysqli_stmt_get_result($stmt);
-        
-    //     if ($result && mysqli_num_rows($result) > 0) {
-    //         $row = mysqli_fetch_assoc($result);
-    //         return new ProductType(
-    //             (int)$row['id'],
-    //             $row['name'],
-    //             $row['description'],
-    //             (float)$row['price'],
-    //             (int)$row['category_id'],
-    //             (bool)$row['is_available'],
-    //             $row['image'] ?? ''
-    //         );
-    //     }
-        
-    //     mysqli_stmt_close($stmt);
-    //     return null;
-    // }
-
 }
 ?>

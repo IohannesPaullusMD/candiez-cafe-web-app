@@ -18,16 +18,16 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand text-white" href="#">&nbsp;Candiez Café</a>
+      <a class="navbar-brand text-white ms-3" href="#home">&nbsp;Candiez Café</a>
       <button
-        class="navbar-toggler"
+        class="navbar-toggler me-3"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse flex-lg-row-reverse mx-3" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link text-white a-tag" href="#home">Home</a>

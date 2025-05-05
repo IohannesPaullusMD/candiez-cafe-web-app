@@ -7,7 +7,6 @@ class ProductType {
             $data['product_id'] ?? self::NO_ID_PROVIDED,
             $data['name'] ?? '',
             $data['description'] ?? '',
-            filter_var($data['price'] ?? 0.0, FILTER_VALIDATE_FLOAT),
             filter_var($data['category_id'] ?? 1, FILTER_VALIDATE_INT),
             filter_var($data['is_available'] ?? false, FILTER_VALIDATE_BOOLEAN),
             $data['image'] ?? ''
@@ -17,7 +16,6 @@ class ProductType {
     private int $id;
     private string $name;
     private string $description;
-    private float $price;
     private int $categoryId;
     private bool $isAvailable;
     private string $image;
@@ -26,7 +24,6 @@ class ProductType {
         int $id, 
         string $name, 
         string $description, 
-        float $price,
         int $categoryId,
         bool $isAvailable,
         string $image = ''
@@ -34,7 +31,6 @@ class ProductType {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
-        $this->price = $price;
         $this->categoryId = $categoryId;
         $this->isAvailable = $isAvailable;
         $this->image = $image;
@@ -45,7 +41,6 @@ class ProductType {
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'price' => $this->price,
             'category_id'=> $this->categoryId,
             'is_available' => $this->isAvailable,
         ];
@@ -74,10 +69,6 @@ class ProductType {
 
     public function getDescription(): string {
         return $this->description;
-    }
-
-    public function getPrice(): float {
-        return $this->price;
     }
 
     public function getCategoryId(): int {
@@ -129,10 +120,6 @@ class ProductType {
         
         if (empty($this->name)) {
             $errors[] = "Product name is required";
-        }
-        
-        if ($this->price < 0) {
-            $errors[] = "Price cannot be negative";
         }
         
         return $errors;
