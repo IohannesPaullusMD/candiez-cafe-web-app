@@ -25,7 +25,7 @@ Array.from(document.getElementsByClassName("a-tag")).forEach((link) => {
     e.preventDefault();
     const href = e.target.getAttribute("href");
     location.hash = href;
-    redirect();
+    location.reload();
   });
 });
 document.addEventListener("DOMContentLoaded", redirect);
