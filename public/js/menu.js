@@ -27,7 +27,7 @@ function loadProducts(categoryId) {
     border-radius: 0.5rem; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
-    min-height: 100vh;
+    min-height: 65vh;
     min-width: 100%;
   `;
 
