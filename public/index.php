@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Candiez Café</title>
     <link
-    href="node_modules/bootstrap/dist/css/bootstrap.min.css"
-    rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
     />
-    <scripts src="node_modules/jquery/dist/jquery.min.js"></scripts>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
-   <script src="view_scripts/api.js" defer></script>
-   <script src="view_scripts/public_script.js" defer></script> 
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="../view_scripts/api.js" defer></script>
+    <script src="../view_scripts/public_script.js" defer></script> 
   </head>
   <body class="bg-light d-flex flex-column min-vh-100">
 

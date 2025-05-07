@@ -3,5 +3,5 @@
 *.test.*
 
 # directories
-vendor
+# vendor
 node_modules

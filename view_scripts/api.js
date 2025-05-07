@@ -1,5 +1,5 @@
 function getProductCategories(callback) {
-  fetch("backend/products?get_categories=true")
+  fetch("../_api_/api.php?path=products&get_categories=true")
     .then((response) => response.json())
     .then((data) => callback(data))
     .catch((error) => console.error("Error: ", error));
@@ -11,7 +11,7 @@ function getProducts(
   includeArchived = false,
   callback
 ) {
-  let uri = `backend/products?category_id=${categoryId}&include_not_available=${includeNotAvailable}&include_archived=${includeArchived}`;
+  let uri = `../_api_/api.php?path=products&category_id=${categoryId}&include_not_available=${includeNotAvailable}&include_archived=${includeArchived}`;
 
   fetch(uri)
     .then((response) => response.json())

@@ -1,4 +1,6 @@
 <?php
+
+/*
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
@@ -35,7 +37,7 @@ switch ($baseRequestUri) {
         header("HTTP/1.0 404 Not Found");
         exit("404 Not Found: " . $requestUri);
 }
-
-
-
+*/
+header("Location: public/index.php", true, 302);
+exit;
 ?>
