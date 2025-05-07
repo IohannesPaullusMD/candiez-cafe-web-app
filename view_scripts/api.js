@@ -91,10 +91,11 @@ function setProductArchiveStatus(productId, state, callback) {
 }
 
 function setAdminUserStatus(toLogin, username, password, callback) {
-  fetch("backend/users", {
+  fetch("../_api_/api.php", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
+      path: "users",
       to_login: toLogin,
       username: username,
       password: password,
