@@ -1,8 +1,14 @@
-function temp(e) {
+function loginUser(e) {
   const username = document.querySelector("#email");
   const password = document.querySelector("#password");
-  setAdminUserStatus(true, username.value, password.value, () => {
-    console.log("Login successful");
+
+  if (username.value === "" || password.value === "") {
+    alert("Please fill in all fields");
+    return;
+  }
+
+  setAdminUserStatus(true, username.value, password.value, (data) => {
+    location.reload();
   });
   e.preventDefault();
 }
@@ -24,7 +30,7 @@ function viewLogin() {
   login.style.width = "350px";
   login.innerHTML = `
         <h3 class="text-center">Login</h3>
-        <form id="login-form" method="get" onsubmit="temp(event)">
+        <form id="login-form" method="get" onsubmit="loginUser(event)">
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
             <input
