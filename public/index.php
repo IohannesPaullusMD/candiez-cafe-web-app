@@ -18,7 +18,7 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand text-white ms-3" href="#home">&nbsp;Candiez Café</a>
+      <a class="navbar-brand text-white ms-3 a-tag" href="#home">&nbsp;Candiez Café</a>
       <button
         class="navbar-toggler me-3"
         type="button"
