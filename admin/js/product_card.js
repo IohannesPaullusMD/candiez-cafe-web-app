@@ -16,7 +16,7 @@ function createProductCard(product) {
   const productCard = document.createElement("div");
   productCard.className = "product-card card";
   productCard.setAttribute("data-product", encodedProductData); // Set the encoded string as a data attribute
-  productCard.style.width = "16rem";
+  productCard.style.width = "20rem";
   productCard.style.height = "26rem";
   productCard.style.cursor = "pointer";
 
@@ -36,6 +36,9 @@ function createProductCard(product) {
 
   const productCardBody = document.createElement("div");
   productCardBody.className = "card-body";
+  productCardBody.style.display = "flex";
+  productCardBody.style.flexDirection = "column";
+  productCardBody.style.height = "100%";
   productCard.appendChild(productCardBody);
 
   const productName = document.createElement("h4");
@@ -47,6 +50,20 @@ function createProductCard(product) {
   productDescription.className = "card-text justify-text text-truncate";
   productDescription.innerHTML = htmlEncode(product["description"] || "");
   productCardBody.appendChild(productDescription);
+
+  const availability = document.createElement("p");
+  availability.className = "card-text";
+  availability.style.marginTop = "auto"; // Push it to the bottom of the card
+  availability.style.fontWeight = "bold"; // Make the text bold
+  if (product["is_available"]) {
+    availability.innerHTML = "Available";
+    availability.style.color = "green";
+  } else {
+    availability.innerHTML = "Not Available";
+    availability.style.color = "red";
+  }
+
+  productCardBody.appendChild(availability);
 
   return productCard;
 }

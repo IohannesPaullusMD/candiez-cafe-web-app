@@ -1,4 +1,4 @@
-function createModalBody() {
+function createModalBody(categories) {
   const modalBody = document.createElement("div");
   modalBody.className = "modal-body";
 
@@ -33,9 +33,34 @@ function createModalBody() {
     <!-- Description -->
     <textarea
       id="description"
-      class="form-control"
+      class="form-control mb-3"
       placeholder="Enter Description"
     ></textarea>
+
+    <!-- Category -->
+    <select id="category" class="form-select mb-3">
+      <option value="" disabled selected>Select Category</option>
+      ${categories
+        .map(
+          (category) =>
+            `<option value="${category["id"]}">${category["name"]}</option>`
+        )
+        .join("")}
+    </select>
+
+    <!-- Availability -->
+    <div class="form-check mb-3">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="availability"
+        checked
+      />
+      <label class="form-check-label" for="availability">
+      <strong>Available</strong>
+      </label>
+    </div>
+    
 
     <style>
       #img-img-container {
@@ -67,12 +92,22 @@ function createModalBody() {
   return modalBody;
 }
 
-function createProductModal(categories) {
+function createnewProdModalFooter() {
+  const modalFooter = document.createElement("div");
+  modalFooter.className = "modal-footer";
+  modalFooter.innerHTML = `
+    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-primary" id="save-product">Save</button>
+  `;
+  return modalFooter;
+}
+
+function createProductModal(categories, product = null) {
   const modal = document.createElement("div");
   const modalDialog = document.createElement("div");
   const modalContent = document.createElement("div");
   const modalHeader = document.createElement("div");
-  const modalBody = createModalBody();
+  const modalBody = createModalBody(categories);
   const modalFooter = document.createElement("div");
 
   modal.className = "modal fade";
@@ -89,15 +124,18 @@ function createProductModal(categories) {
   modalDialog.appendChild(modalContent);
 
   modalHeader.className = "modal-header";
-  modalHeader.innerHTML =
-    '<h1 class="modal-title fs-5" id="product-modal-label">Add Product</h1>';
+  modalHeader.innerHTML = `<h1 class="modal-title fs-5" id="product-modal-label">${
+    product ? "Edit" : "Add"
+  } Product</h1>`;
   modalContent.appendChild(modalHeader);
 
   modalContent.appendChild(modalBody);
 
   modalFooter.className = "modal-footer";
-  modalFooter.innerHTML =
-    '<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>';
+  modalFooter.innerHTML = `
+    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-primary" id="save-product">Save</button>
+  `;
   modalContent.appendChild(modalFooter);
   return modal;
 }

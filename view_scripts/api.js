@@ -11,7 +11,7 @@ function getProducts(
   includeArchived = false,
   callback
 ) {
-  let uri = `../_api_/api.php?path=products&category_id=${categoryId}&include_not_available=${includeNotAvailable}&include_archived=${includeArchived}`;
+  const uri = `../_api_/api.php?path=products&category_id=${categoryId}&include_not_available=${includeNotAvailable}&include_archived=${includeArchived}`;
 
   fetch(uri)
     .then((response) => response.json())

@@ -33,7 +33,7 @@ function loadProducts(categoryId) {
     `;
   root.className += " justify-content-center justify-content-md-start";
   root.innerHTML = "";
-  getProducts(categoryId, false, false, (products) => {
+  getProducts(categoryId, true, false, (products) => {
     products.forEach((product) => {
       root.appendChild(createProductCard(product));
     });
