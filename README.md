@@ -5,6 +5,7 @@ Welcome to the Candiez Cafe Web App repository! This application provides an onl
 ## Getting Started
 
 These instructions will help you set up the project on your local machine for development and testing purposes.
+Create a new branch and create a pull request to development branch to add your changes.
 
 ### Prerequisites
 
