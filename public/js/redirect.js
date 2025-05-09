@@ -1,5 +1,4 @@
 function redirect() {
-  // e.preventDefault();
   const hash = window.location.hash;
   console.log(hash);
   if (hash !== null) {
@@ -24,7 +23,6 @@ function redirect() {
       e.preventDefault();
       const href = e.target.getAttribute("href");
       location.hash = href;
-      console.log(href);
       location.reload();
     });
   });

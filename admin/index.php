@@ -26,6 +26,5 @@ session_start();
       echo (isset($_SESSION['admin_user']) 
         ? '../view_scripts/admin_script.js' 
         : 'login_page.js');
-    ?>'></script>
-
+    ?>' defer></script>
   </body>

@@ -1,26 +1,35 @@
-const redirect = (e) => {
+function logoutUser() {
+  console.log("logging out");
+  setAdminUserStatus(
+    false,
+    "",
+    "",
+    (data) => console.log(data),
+    location.reload()
+  );
+}
+
+function redirect() {
   const hash = window.location.hash;
-
-  if (e) {
-    e.preventDefault();
-  }
-
+  console.log(hash);
   if (hash !== null) {
     switch (hash) {
-      case "#menu":
-        viewMenu();
-        return;
-      case "#about":
-        viewAbout();
-        return;
-      case "#contacts":
-        viewContacts();
-        return;
+      case "#archive":
+        viewArchive();
+        break;
+      case "#logout":
+        logoutUser();
+        break;
       default:
+        viewProducts();
         break;
     }
   }
-  viewHome();
-};
 
-document.addEventListener("DOMContentLoaded", redirect);
+  Array.from(document.getElementsByClassName("a-tag")).forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      location.reload();
+    });
+  });
+}

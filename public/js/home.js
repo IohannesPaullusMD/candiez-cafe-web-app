@@ -16,7 +16,7 @@ function viewHome() {
         </div>
         <div class="col-lg-6 col-md-12 mt-4 mt-lg-0 margin-top-lg-10">
           
-          <img id="home-img" class="rounded" src="https://operaparallele.org/wp-content/uploads/2023/09/Placeholder_Image.png" width="100%" alt="home-image">
+          <img id="home-img" class="rounded" src="../docs/img-placeholder.jpg" width="100%" alt="home-image">
         </div>
       </div>
   `;

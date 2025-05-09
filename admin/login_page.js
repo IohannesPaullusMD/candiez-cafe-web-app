@@ -8,6 +8,8 @@ function loginUser(e) {
   }
 
   setAdminUserStatus(true, username.value, password.value, (data) => {
+    location.hash = "#products";
+    alert(data["message"]);
     location.reload();
   });
   e.preventDefault();
