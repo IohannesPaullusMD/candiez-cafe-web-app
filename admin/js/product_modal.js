@@ -39,7 +39,7 @@ function createModalBody(categories) {
 
     <!-- Category -->
     <select id="category" class="form-select mb-3">
-      <option value="" disabled selected>Select Category</option>
+      <option value="-1" disabled selected>Select Category</option>
       ${categories
         .map(
           (category) =>
@@ -87,6 +87,46 @@ function createModalBody(categories) {
         object-fit: cover; /* Crops to the center */
       }
     </style>
+    <script>
+        document
+        .getElementById("imageUpload")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+          console.log(file);
+
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const imagePreview = document.getElementById("imagePreview");
+              imagePreview.src = e.target.result;
+              imagePreview.onload = () => console.log("Image updated successfully!");
+              imagePreview.style.objectFit = "cover"; // Ensures only center portion is shown
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      // Function to Convert Image to Base64
+      function convertImageToBase64() {
+        const fileInput = document.getElementById("imageUpload");
+        const file = fileInput.files[0];
+
+        if (!file) {
+          alert("Please select an image.");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          const base64String = reader.result;
+          console.log("Base64 String:", base64String);
+
+          // Display updated preview
+          document.getElementById("imagePreview").src = base64String;
+        };
+      }
+    </script>
   `;
 
   return modalBody;

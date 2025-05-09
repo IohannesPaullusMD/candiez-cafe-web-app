@@ -17,8 +17,9 @@ function createProductCard(product) {
   productCard.className = "product-card card";
   productCard.setAttribute("data-product", encodedProductData); // Set the encoded string as a data attribute
   productCard.style.width = "20rem";
-  productCard.style.height = "28rem";
+  productCard.style.height = "30rem";
   productCard.style.cursor = "pointer";
+  //TODO: add on click event to open modal
 
   const productImage = document.createElement("img");
   productImage.className = "card-img-top bd-placeholder-img";
@@ -47,8 +48,14 @@ function createProductCard(product) {
   productCardBody.appendChild(productName);
 
   const productDescription = document.createElement("p");
-  productDescription.className = "card-text justify-text text-truncate";
+  productDescription.className = "card-text text-wrap";
+  productDescription.style.display = "-webkit-box";
+  productDescription.style.webkitLineClamp = "3";
+  productDescription.style.boxOrient = "vertical"; // Standard property
+  productDescription.style.webkitBoxOrient = "vertical"; // Keep for backward compatibility
+  productDescription.style.overflow = "hidden";
   productDescription.innerHTML = htmlEncode(product["description"] || "");
+  productDescription.style.marginBottom = "auto"; // Push it to the bottom of the card
   productCardBody.appendChild(productDescription);
 
   const availability = document.createElement("p");

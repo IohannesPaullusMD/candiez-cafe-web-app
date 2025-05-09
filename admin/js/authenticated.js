@@ -6,7 +6,7 @@ function loadAuthenticatedPage() {
 
   document.head.innerHTML += `
     <style>
-      .a-tag:hover {
+      .a-tag:hover, #add-product-btn:hover {
         text-decoration: underline;
       }
     </style>

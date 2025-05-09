@@ -38,6 +38,6 @@ switch ($baseRequestUri) {
         exit("404 Not Found: " . $requestUri);
 }
 */
-header("Location: public/index.php", true, 302);
+header("Location: public/", true, 302);
 exit;
 ?>

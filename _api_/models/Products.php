@@ -52,7 +52,7 @@ class Products {
             $sql .= "AND (is_archived = 0 OR is_archived IS NULL) ";
         }
         
-        $sql .= "ORDER BY id ASC";
+        $sql .= "ORDER BY is_available DESC, id ASC";
         $stmt = mysqli_prepare($this->dbConn, $sql);
         mysqli_stmt_bind_param($stmt, 'i', $productCategoryId);
         mysqli_stmt_execute($stmt);
