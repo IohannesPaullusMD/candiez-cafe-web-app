@@ -13,11 +13,29 @@ function createPageNavBar() {
       </button>
       <div class="collapse navbar-collapse flex-lg-row-reverse mx-3" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link text-white a-tag" href="#products">Products</a>
+          <li class="nav-item ">
+            <button class="nav-link text-white" id="add-product-btn" type="button" data-bs-toggle="modal" data-bs-target="#product-modal">
+              Add Product
+              <span class="d-none d-lg-inline-block divider">
+                &nbsp;&nbsp;|
+              </span>
+            </button>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white a-tag" href="#archive">Archive</a>
+            <a class="nav-link text-white a-tag" href="#products">
+              Products
+              <span class="d-none d-lg-inline-block divider">
+                &nbsp;&nbsp;|
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white a-tag" href="#archive">
+              Archive
+              <span class="d-none d-lg-inline-block divider">
+                &nbsp;&nbsp;|
+              </span>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white a-tag" href="#logout">Logout</a>
@@ -27,3 +45,10 @@ function createPageNavBar() {
   `;
   return nav;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const addProdBtn = document.getElementById("add-product-btn");
+  addProdBtn.addEventListener("click", () => {
+    location.href = "#products";
+  });
+});

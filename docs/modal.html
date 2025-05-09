@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Upload Modal</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Style for the image preview to maintain 1:1 aspect ratio */
+      .image-container {
+        width: 150px; /* Fixed width */
+        height: 150px; /* Fixed height */
+        overflow: hidden; /* Ensures cropping */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #ccc;
+        border-radius: 10px; /* Optional rounded corners */
+      }
+
+      .image-container img {
+        width: 100%; /* Ensures full coverage */
+        height: 100%; /* Ensures full coverage */
+        object-fit: cover; /* Crops to the center */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Button to trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#uploadModal"
+    >
+      Open Upload Modal
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="uploadModal"
+      tabindex="-1"
+      aria-labelledby="uploadModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="uploadModalLabel">Upload Image</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Image Preview (Starts with Placeholder) -->
+            <div class="image-container">
+              <img
+                id="imagePreview"
+                src="img-placeholder.jpg"
+                alt="Image Preview"
+              />
+            </div>
+
+            <!-- Upload Input -->
+            <input
+              type="file"
+              id="imageUpload"
+              class="form-control mb-3"
+              accept="image/*"
+            />
+
+            <!-- Name -->
+            <input
+              type="text"
+              id="name"
+              class="form-control mb-3"
+              placeholder="Enter Name"
+            />
+
+            <!-- Description -->
+            <textarea
+              id="description"
+              class="form-control"
+              placeholder="Enter Description"
+            ></textarea>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-success"
+              onclick="convertImageToBase64()"
+            >
+              Upload
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Change Image Preview When User Uploads a New Image
+      document
+        .getElementById("imageUpload")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0];
+
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const imagePreview = document.getElementById("imagePreview");
+              imagePreview.src = e.target.result;
+              imagePreview.style.objectFit = "cover"; // Ensures only center portion is shown
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      // Function to Convert Image to Base64
+      function convertImageToBase64() {
+        const fileInput = document.getElementById("imageUpload");
+        const file = fileInput.files[0];
+
+        if (!file) {
+          alert("Please select an image.");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          const base64String = reader.result;
+          console.log("Base64 String:", base64String);
+
+          // Display updated preview
+          document.getElementById("imagePreview").src = base64String;
+        };
+      }
+    </script>
+  </body>
+</html>

@@ -1,27 +1,15 @@
-function createNewProdBtn() {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "btn btn-dark mb-3";
-  btn.setAttribute("data-bs-toggle", "modal");
-  btn.setAttribute("data-bs-target", "#product-modal");
-  btn.innerHTML = "Add Product";
-  return btn;
-}
-
 function viewProducts() {
   const root = document.getElementById("root");
   root.innerHTML = "";
 
   getProductCategories((categories) => {
     const productsDiv = document.createElement("div");
-    const newProdBtn = createNewProdBtn();
     const newProdModal = createProductModal(categories);
     const categoryNavBar = createCategoryNavBar(categories);
 
     productsDiv.id = "products-div";
     categoryNavBar.id = "category-nav-bar";
 
-    root.appendChild(newProdBtn);
     root.appendChild(newProdModal);
     root.appendChild(categoryNavBar);
     root.appendChild(productsDiv);

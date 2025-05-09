@@ -4,6 +4,14 @@ function loadAuthenticatedPage() {
   const pageNavBar = createPageNavBar();
   const footer = document.createElement("footer");
 
+  document.head.innerHTML += `
+    <style>
+      .a-tag:hover {
+        text-decoration: underline;
+      }
+    </style>
+  `;
+
   body.insertBefore(pageNavBar, root);
   body.appendChild(footer);
   root.className = "container mt-5 flex-grow-1";

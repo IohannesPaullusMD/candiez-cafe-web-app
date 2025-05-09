@@ -32,7 +32,7 @@ function createProductCard(product) {
     product["image"] && product["image_type"]
       ? `data:image/${product["image_type"]};base64,${product["image"]}`
       : "../docs/img-placeholder.jpg";
-
+  console.log(product["image"]);
   const productCardBody = document.createElement("div");
   productCardBody.className = "card-body";
   productCard.appendChild(productCardBody);
