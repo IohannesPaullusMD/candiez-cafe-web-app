@@ -17,7 +17,7 @@ function createProductCard(product) {
   productCard.className = "product-card card";
   productCard.setAttribute("data-product", encodedProductData); // Set the encoded string as a data attribute
   productCard.style.width = "20rem";
-  productCard.style.height = "26rem";
+  productCard.style.height = "28rem";
 
   const productImage = document.createElement("img");
   productImage.className = "card-img-top bd-placeholder-img";
