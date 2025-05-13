@@ -13,7 +13,7 @@ session_start();
       rel="stylesheet"
     />
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js" defer></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="../view_scripts/api.js"></script>
   </head>
   <body class='<?php 

@@ -1,3 +1,57 @@
+function changeImagePreview() {
+  const imageUpload = document.getElementById("imageUpload");
+  const imagePreview = document.getElementById("imagePreview");
+  const imgContainer = document.getElementById("img-img-container");
+  const file = imageUpload.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      imagePreview.src = reader.result;
+      imgContainer.style.display = "flex"; // Show the image container
+    };
+  } else {
+    imagePreview.src = "../docs/img-placeholder.jpg"; // Reset the image preview
+    imgContainer.style.display = "none"; // Hide the image container
+  }
+}
+
+function saveProduct() {
+  const imageStr = document.getElementById("imagePreview").src;
+  const name = document.getElementById("name").value;
+  const description = document.getElementById("description").value;
+  const category = document.getElementById("category").value;
+  const availability = document.getElementById("availability").checked;
+
+  if (imageStr === "../docs/img-placeholder.jpg") {
+    alert("Please upload an image.");
+    return;
+  }
+
+  if (!name || !description || category === "-1") {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  if (document.getElementById("prod-id").innerHTML === "-1") {
+    addProduct(
+      category,
+      name,
+      description,
+      imageStr,
+      availability,
+      (response) => {
+        if (response.status === 201) {
+          alert("Product added successfully.");
+          location.reload();
+        } else {
+          alert("Error adding product.");
+        }
+      }
+    );
+  }
+}
+
 function createModalBody(categories) {
   const modalBody = document.createElement("div");
   modalBody.className = "modal-body";
@@ -87,48 +141,10 @@ function createModalBody(categories) {
         object-fit: cover; /* Crops to the center */
       }
     </style>
-    <script>
-        document
-        .getElementById("imageUpload")
-        .addEventListener("change", function (event) {
-          const file = event.target.files[0];
-          console.log(file);
-
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              const imagePreview = document.getElementById("imagePreview");
-              imagePreview.src = e.target.result;
-              imagePreview.onload = () => console.log("Image updated successfully!");
-              imagePreview.style.objectFit = "cover"; // Ensures only center portion is shown
-            };
-            reader.readAsDataURL(file);
-          }
-        });
-
-      // Function to Convert Image to Base64
-      function convertImageToBase64() {
-        const fileInput = document.getElementById("imageUpload");
-        const file = fileInput.files[0];
-
-        if (!file) {
-          alert("Please select an image.");
-          return;
-        }
-
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-          const base64String = reader.result;
-          console.log("Base64 String:", base64String);
-
-          // Display updated preview
-          document.getElementById("imagePreview").src = base64String;
-        };
-      }
-    </script>
   `;
-
+  modalBody
+    .querySelector("#imageUpload")
+    .addEventListener("change", changeImagePreview);
   return modalBody;
 }
 
@@ -149,6 +165,12 @@ function createProductModal(categories, product = null) {
   const modalHeader = document.createElement("div");
   const modalBody = createModalBody(categories);
   const modalFooter = document.createElement("div");
+  const prodId = document.createElement("p");
+
+  prodId.id = "prod-id";
+  prodId.style.display = "none"; // Hide the product ID field
+  prodId.innerHTML = product ? product["id"] : "-1";
+  modalBody.appendChild(prodId);
 
   modal.className = "modal fade";
   modal.id = "product-modal";
@@ -176,6 +198,9 @@ function createProductModal(categories, product = null) {
     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
     <button type="button" class="btn btn-primary" id="save-product">Save</button>
   `;
+  modalFooter
+    .querySelector("#save-product")
+    .addEventListener("click", () => saveProduct());
   modalContent.appendChild(modalFooter);
   return modal;
 }

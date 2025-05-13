@@ -90,12 +90,12 @@ class Products {
             $image = $product->getImage();
             
             $sql = "INSERT INTO products (name, description, category_id, is_available, image) 
-                   VALUES (?, ?, ?, ?, ?, ?)";
+                   VALUES (?, ?, ?, ?, ?)";
                    
             $stmt = mysqli_prepare($this->dbConn, $sql);
             mysqli_stmt_bind_param(
                 $stmt,
-                'ssiss',
+                'ssiis',
                 $name,
                 $description,
                 $categoryId,
@@ -140,7 +140,7 @@ class Products {
             $stmt = mysqli_prepare($this->dbConn, $sql);
             mysqli_stmt_bind_param(
                 $stmt,
-                'ssissi',
+                'ssiisi',
                 $name,
                 $description,
                 $categoryId,

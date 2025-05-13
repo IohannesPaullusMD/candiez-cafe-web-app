@@ -112,7 +112,7 @@ try {
     }
 } catch (Exception $e) {
     error_log("Error in ProductsController.php: " . $e->getMessage());
-    sendJsonResponse(['message' => 'An unexpected error occurred'], 500);
+    sendJsonResponse(['message' => 'An unexpected error occurred: '.json_encode($data)], 500);
 }
 
 ?>

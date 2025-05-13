@@ -22,20 +22,19 @@ function getProducts(
 function addProduct(
   categoryId,
   name,
-  price,
   description,
   image,
   isAvailable,
   callback
 ) {
-  fetch("backend/products", {
+  fetch("../_api_/api.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
+      path: "products",
       add_product: true,
       category_id: categoryId,
       name: name,
-      price: price,
       description: description,
       image: image,
       is_available: isAvailable,
